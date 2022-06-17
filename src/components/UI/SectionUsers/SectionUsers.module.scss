@@ -1,0 +1,18 @@
+.SectionUsersWrapp {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+    h2 {
+        margin-top: 140px;
+    }
+}
+
+.usersWrapp {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 21px;
+    margin-bottom: 50px;
+}

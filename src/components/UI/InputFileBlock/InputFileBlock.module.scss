@@ -1,0 +1,54 @@
+.labelFileWrapp {
+  display: flex;
+  justify-content: flex-start;
+  width: 380px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.labelFile {
+  position: relative;
+  width: 83px;
+  height: 54px;
+  border: 1px solid rgba(0, 0, 0, 0.87);
+  border-radius: 4px 0px 0px 4px;
+  text-align: center;
+  line-height: 54px;
+  cursor: pointer;
+
+  &::after {
+    content: attr(data-photo);
+    box-sizing: border-box;
+    position: absolute;
+    top: -1px;
+    left: 82px;
+    width: 297px;
+    height: 54px;
+    border: 1px solid #D0CFCF;
+    border-radius: 0px 4px 4px 0px;
+    text-align: start;
+    border-left: none;
+    padding-left: 16px;
+    color: #7E7E7E;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.labelFileErr {
+  border: 2px solid #CB3D40;
+  line-height: 52px;
+  &::after {
+    box-sizing: border-box;
+    border: 2px solid #CB3D40;
+    border-left: none;
+    top: -2px;
+    left: 81px;
+  }
+}
+
+
+.inputFile {
+  display: none;
+}

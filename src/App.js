@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import './main.scss'
+import MainPage from "./page/MainPage";
+import Header from "./components/UI/Header/Header";
+import Footer from "./components/UI/Footer/Footer";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function App() {
+
+  const theme = createTheme({
+    typography: {
+      fontFamily: [
+        "Nunito",
+        "Roboto",
+        "sans-serif"
+      ].join(",")
+    }
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ThemeProvider theme={theme}>
+        <Header />
+        <MainPage />
+        <Footer />
+      </ThemeProvider>
+    </>
   );
 }
 

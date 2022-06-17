@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  display: block;
+}
+
+body {
+  background-color: rgb(248, 248, 248);
+
+}
+
+h1,
+h2 {
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 40px;
+  font-family: 'Nunito', sans-serif;
+}
+
+div {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.main-page {
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
