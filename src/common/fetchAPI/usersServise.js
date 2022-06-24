@@ -1,6 +1,8 @@
+const USERS_URL = 'https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6';
+
 export default class UsersServise {
 
-  static async getAllUsers(url = 'https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6') {
+  static async getAllUsers(url = USERS_URL) {
     const responseUsers = await fetch(url)
     return await responseUsers.json()
   }
@@ -22,7 +24,8 @@ export default class UsersServise {
         'Token': token
       }
     })
-    return await responseUser.json()
+
+    return responseUser.json()
   }
 
 } 

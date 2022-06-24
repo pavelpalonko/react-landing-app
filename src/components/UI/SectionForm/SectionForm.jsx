@@ -14,6 +14,16 @@ const SectionForm = ({ setUrl }) => {
   const [data, setData] = useState('')
   const [successfullRegister, setSuccessfullRegister] = useState(false)
 
+  const [formState, setFormState] = useState({
+    name: {
+      value: '',
+      valid: false
+    },
+    email: false,
+    phone: false,
+    photo: false,
+  })
+
   const [validationState, setValidationState] = useState({
     name: false,
     email: false,
@@ -58,6 +68,16 @@ const SectionForm = ({ setUrl }) => {
     setFormIsValid(Object.values(validationState).every((err) => err))
   }, [validationState])
 
+  const onFormControlChanged = ((name, { value, valid }) => {
+    setFormState({
+      ...formState,
+      [name]: {
+        value,
+        valid
+      }
+    })
+  })
+
   return (
     <section>
       {
@@ -75,16 +95,21 @@ const SectionForm = ({ setUrl }) => {
               setFormFields={setFormFields}
               validationState={validationState}
               setValidationState={setValidationState}
+              changed={({ value, valid }) => onFormControlChanged('name', { value, valid })}
             />
             <InputRadioBlock
               formFields={formFields}
               setFormFields={setFormFields}
             />
-            <InputFileBlock
+            {/* <InputFileBlock
               formFields={formFields}
               setFormFields={setFormFields}
               validationState={validationState}
               setValidationState={setValidationState}
+            /> */}
+            <InputFileBlock
+              value={formState.photo.value}
+              changed={({ value, valid }) => onFormControlChanged('photo', { value, valid })}
             />
             <MyButton
               name='send'

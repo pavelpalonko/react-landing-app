@@ -2,21 +2,24 @@ import React, { useState } from "react";
 import { useValidation } from "../../../common/hooks/useValidation";
 import classes from "./InputFileBlock.module.scss"
 
-const InputFileBlock = ({ formFields, setFormFields, validationState, setValidationState }) => {
+const InputFileBlock = ({ value, onStateChanged }) => {
 
   const { validatePhoto } = useValidation()
   const rootStyle = [classes.labelFile]
-  const [errStyle, setErrStyle] = useState(false)
+  const [valid, setValid] = useState(false)
 
   const validation = (validFunction) => async (event) => {
     const isValid = await validFunction(event)
 
-    setErrStyle(!isValid)
-    setValidationState({ ...validationState, [event.target.name]: isValid })
-    setFormFields({ ...formFields, [event.target.name]: event.target?.files[0] })
+    setValid(isValid)
+
+    onStateChanged({
+      value: event.target?.files[0],
+      isValid
+    })
   }
 
-  if (errStyle) {
+  if (valid) {
     rootStyle.push(classes.labelFileErr)
   }
 
