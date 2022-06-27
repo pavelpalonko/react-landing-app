@@ -1,4 +1,5 @@
 import classes from './MyButton.module.scss'
+import PropTypes from 'prop-types'
 
 const MyButton = ({ children, disabled, ...props }) => {
 
@@ -7,6 +8,12 @@ const MyButton = ({ children, disabled, ...props }) => {
       {children}
     </button>
   )
+}
+
+MyButton.propsType = {
+  children: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  props: PropTypes.object,
 }
 
 export default MyButton

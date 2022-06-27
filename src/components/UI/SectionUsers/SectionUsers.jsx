@@ -2,6 +2,7 @@ import React from "react";
 import MyButton from "../MyButton/MyButton";
 import UserBlock from "../UserBlock/UserBlock";
 import classes from './SectionUsers.module.scss'
+import PropTypes from 'prop-types'
 
 const SectionUsers = ({ users, setUrl, nextUrl, loading }) => {
 
@@ -38,6 +39,13 @@ const SectionUsers = ({ users, setUrl, nextUrl, loading }) => {
       </div>
     </section>
   )
+}
+
+SectionUsers.propTypes = {
+  users: PropTypes.array, 
+  setUrl: PropTypes.func, 
+  nextUrl: PropTypes.string, 
+  loading: PropTypes.bool, 
 }
 
 export default SectionUsers

@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import classes from './UserBlock.module.scss'
 import userPhoto from '../../../assets/svg/photo-cover.svg'
+import PropTypes from 'prop-types'
 
 const UserBlock = ({photo, name, email, position, phone}) => {
 
@@ -17,6 +18,14 @@ const UserBlock = ({photo, name, email, position, phone}) => {
       </div>
     </div>
   )
+}
+
+UserBlock.propTypes = {
+  photo: PropTypes.string, 
+  name: PropTypes.string, 
+  email: PropTypes.string, 
+  position: PropTypes.string, 
+  phone: PropTypes.string,
 }
 
 export default UserBlock

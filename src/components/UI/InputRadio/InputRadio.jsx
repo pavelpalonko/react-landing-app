@@ -1,28 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useFetching } from "../../../common/hooks/useFetching";
-import UsersServise from "../../../common/fetchAPI/usersServise";
-import classes from "./InputRadioBlock.module.scss"
+import React from "react";
+import classes from "./InputRadio.module.scss"
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import PropTypes from 'prop-types'
 
-const InputRadioBlock = ({ formFields, setFormFields }) => {
-
-  const [positions, setPositions] = useState([])
-
-  const [fetchRadioButton, isLoadingRadio] = useFetching(async () => {
-    const resultPosition = await UsersServise.getRadioButton()
-    setPositions(resultPosition)
-  })
-
-  useEffect(() => {
-    fetchRadioButton()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const handelRadio = (event) => {
-    setFormFields({ ...formFields, [event.target.name]: +event.target.value })
-  }
+const InputRadio = ({ value, onStateValue, positions, isLoading }) => {
 
   const Ellipse = () => {
     return (
@@ -41,16 +24,20 @@ const InputRadioBlock = ({ formFields, setFormFields }) => {
     )
   }
 
+  const handelRadio = (event) => {
+    onStateValue(+event.target.value)
+  }
+
   return (
     <div className={classes.inputRadioWrapp}>
       <div>Select you position</div>
       <RadioGroup
         name="position"
-        value={formFields.position}
+        value={value}
         onChange={handelRadio}
       >
         {
-          isLoadingRadio
+          isLoading
             ? 'Loading...'
             : positions.map((position) =>
               <FormControlLabel
@@ -69,4 +56,11 @@ const InputRadioBlock = ({ formFields, setFormFields }) => {
   )
 }
 
-export default InputRadioBlock
+InputRadio.propTypes = {
+  value: PropTypes.number, 
+  onStateValue: PropTypes.func, 
+  positions: PropTypes.array, 
+  isLoading: PropTypes.bool,
+}
+
+export default InputRadio
