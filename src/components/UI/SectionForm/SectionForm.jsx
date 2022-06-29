@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useFetching } from "../../../common/hooks/useFetching";
 import { useValidation } from "../../../common/hooks/useValidation";
+import { useUsersServiсe } from "../../../common/fetchAPI/useUsersServiсe";
 import MyButton from "../MyButton/MyButton";
-import UsersServise from "../../../common/fetchAPI/usersServise";
 import InputRadio from "../InputRadio/InputRadio";
 import InputFile from "../InputFile/InputFile";
 import classes from './SectionForm.module.scss'
@@ -10,9 +10,11 @@ import successImage from '../../../assets/svg/success-image.svg'
 import InputText from "../InputText/InputText";
 import PropTypes from 'prop-types'
 
-const SectionForm = ({ setUrl, positions, isLoadingRadio }) => {
+const SectionForm = ({ positions, isLoadingPositions, downloadNextUsers }) => {
 
+  const UsersService = useUsersServiсe()
   const { validateName, validateEmail, validatePhone, validatePhoto } = useValidation()
+  const [errMsg, setErrMsg ] = useState('')
   const [successfullRegister, setSuccessfullRegister] = useState(false)
   const [formIsValid, setFormIsValid] = useState(false)
   const [data, setData] = useState('')
@@ -52,11 +54,14 @@ const SectionForm = ({ setUrl, positions, isLoadingRadio }) => {
   }
 
   const [postDataUser] = useFetching(async () => {
-    const resultingPost = await UsersServise.postUser(data)
-    console.log(resultingPost.success)
+    const resultingPost = await UsersService.postUser(data)
+    console.log(resultingPost)
     if (resultingPost.success) {
       setSuccessfullRegister(true)
-      setUrl()
+      downloadNextUsers(true)
+      setErrMsg('')
+    } else {
+      setErrMsg(resultingPost.message)
     }
   })
 
@@ -129,7 +134,7 @@ const SectionForm = ({ setUrl, positions, isLoadingRadio }) => {
               value={formState.position.value}
               onStateValue={(value) => onFormControlValue('position', value)}
               positions={positions}
-              isLoading={isLoadingRadio}
+              isLoading={isLoadingPositions}
             />
             <InputFile
               value={formState.photo.value}
@@ -141,6 +146,11 @@ const SectionForm = ({ setUrl, positions, isLoadingRadio }) => {
               name='send'
               disabled={!formIsValid}
               onClick={sumbitForm}>Send</MyButton>
+              {
+                errMsg
+                ? <div className={classes.errorMessage}>{errMsg}</div>
+                : null
+              }      
           </form>
       }
     </section>
@@ -148,9 +158,9 @@ const SectionForm = ({ setUrl, positions, isLoadingRadio }) => {
 }
 
 SectionForm.propTypes = {
-  setUrl: PropTypes.func, 
   positions: PropTypes.array, 
   isLoadingRadio: PropTypes.bool, 
+  downloadNextUsers: PropTypes.func, 
 }
 
 export default SectionForm
